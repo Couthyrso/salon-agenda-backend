@@ -36,4 +36,5 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('services/{id}', [ServiceController::class, 'show']);
     Route::put('services/{id}', [ServiceController::class, 'update']);
     Route::delete('services/{id}', [ServiceController::class, 'destroy']);
+    Route::put('services/{id}/toggle-status', [ServiceController::class, 'toggleStatus']);
 });

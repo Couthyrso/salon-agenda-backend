@@ -8,9 +8,10 @@ use Illuminate\Http\Request;
 
 class ServiceController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         $services = Service::all();
+
         return response()->json($services);
     }
 
@@ -22,6 +23,16 @@ class ServiceController extends Controller
 
     public function show(Service $service)
     {
+        // Verifica se a requisição vem do admin
+        if (request()->header('X-Admin-Request') === 'true') {
+            return response()->json($service);
+        }
+        
+        // Para clientes, verifica se o serviço não está deletado
+        if ($service->trashed()) {
+            return response()->json(['message' => 'Serviço não encontrado'], 404);
+        }
+        
         return response()->json($service);
     }
 
@@ -31,9 +42,10 @@ class ServiceController extends Controller
         return response()->json($service);
     }
     
-    public function destroy(Service $service)
+    public function destroy($id)
     {
-        $service->delete();
+        $service = Service::findOrFail($id)->delete();
+
         return response()->json(null, 204);
     }
 }
