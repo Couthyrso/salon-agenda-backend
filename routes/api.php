@@ -3,7 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\Api\AppointmentController;
+use App\Http\Controllers\AppointmentController;
 use App\Http\Controllers\ServiceController;
 /*
 |--------------------------------------------------------------------------
@@ -27,9 +27,9 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
     Route::get('appointments', [AppointmentController::class, 'index']);
     Route::post('appointments/store', [AppointmentController::class, 'store']);
-    Route::get('appointments/{id}', [AppointmentController::class, 'show']);
-    Route::put('appointments/{id}', [AppointmentController::class, 'update']);
-    Route::delete('appointments/{id}', [AppointmentController::class, 'destroy']);
+    Route::get('appointments/{appointment}', [AppointmentController::class, 'show']);
+    Route::put('appointments/{appointment}', [AppointmentController::class, 'update']);
+    Route::delete('appointments/{appointment}', [AppointmentController::class, 'destroy']);
 
     Route::get('services', [ServiceController::class, 'index']);
     Route::post('services/store', [ServiceController::class, 'store']);

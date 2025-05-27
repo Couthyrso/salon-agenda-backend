@@ -15,9 +15,11 @@ return new class extends Migration
             $table->unsignedBigInteger('service_id');
             $table->foreign('service_id')->references('id')->on('services');
             $table->dateTime('appointment_date');
-            $table->string('status')->default('pending'); 
+            $table->string('payment_method');
+            $table->string('status')->default('Agendado');
             $table->text('notes')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

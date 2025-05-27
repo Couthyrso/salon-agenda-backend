@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\Appointment;
@@ -16,6 +16,7 @@ class AppointmentController extends Controller
             'service_id' => 'required|exists:services,id',
             'appointment_date' => 'required|date',
             'notes' => 'nullable|string'
+            
         ]);
 
         if ($validator->fails()) {
@@ -26,8 +27,9 @@ class AppointmentController extends Controller
             'user_id' => $request->user_id,
             'service_id' => $request->service_id,
             'appointment_date' => $request->appointment_date,
+            'payment_method' => $request->payment_method,
             'notes' => $request->notes,
-            'status' => 'pending'
+            'status' => 'pending',
         ]);
 
         return response()->json([
