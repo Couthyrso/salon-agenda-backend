@@ -36,9 +36,16 @@ class ServiceController extends Controller
         return response()->json($service);
     }
 
-    public function update(ServiceRequest $request, Service $service)
+    public function update(Request $request, $id)
     {
-        $service->update($request->validated());
+        $service = Service::findOrFail($id);
+
+        $service->name = $request->name;
+        $service->description = $request->description;
+        $service->price = $request->price;
+        $service->duration = $request->duration;
+        $service->save();
+
         return response()->json($service);
     }
     
